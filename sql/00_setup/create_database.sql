@@ -1,0 +1,5 @@
+CREATE DATABASE Uber;
+
+GO USE Uber;
+
+GO
