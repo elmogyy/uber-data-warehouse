@@ -1,0 +1,39 @@
+# SSIS 
+*.conmgr
+*.dtproj.user
+*.database
+*.ispac
+
+# Visual Studio
+.vs/
+bin/
+obj/
+
+# User files
+*.user
+*.suo
+
+# SQL Server Backup
+*.bak
+
+# Visual Studio
+.vs/
+bin/
+obj/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# OS Files
+Thumbs.db
+.DS_Store
+
+# Temporary files
+*.tmp
+*.temp
+
+# Power BI autosave
+*.pbix.autosave
