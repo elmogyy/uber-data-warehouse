@@ -1,0 +1,2644 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/6/2026 3:56:12 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="LAPTOP-ARAI2VGK"
+  DTS:CreatorName="LAPTOP-ARAI2VGK\elmog"
+  DTS:DTSID="{78C9E534-7040-4226-A64A-C709C5A59C48}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1010.2"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="6"
+  DTS:VersionGUID="{87B71929-BAB8-4E88-AFE7-6DC7E2F886BF}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DFT_fact_trip"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{102F8ACB-1CBC-4203-A516-5CF44479F999}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT_fact_trip"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT_fact_trip\Lookup_dim_date"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup_dim_date"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT d.date_key,d.full_date FROM dim_date d</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT d.date_key,d.full_date FROM dim_date d) [refTable]
+where [refTable].[full_date] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="date_key" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="full_date" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[trip_date]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_fact_trip\Lookup_dim_date.Connections[OleDbConnection]"
+                  connectionManagerID="{0E59CA9D-F5D1-4F57-B9DE-4B141017812D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.Uber_DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_fact_trip\Lookup_dim_date.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dim_date.Inputs[Lookup Input].Columns[trip_date]"
+                      cachedDataType="dbDate"
+                      cachedName="trip_date"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[trip_date]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">full_date</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_fact_trip\Lookup_dim_date.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT_fact_trip\Lookup_dim_date.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dim_date.Outputs[Lookup Match Output].Columns[date_key]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DFT_fact_trip\Lookup_dim_date.Outputs[Lookup Match Output].Columns[date_key]"
+                      name="date_key"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">date_key</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_fact_trip\Lookup_dim_date.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT_fact_trip\Lookup_dim_date.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_fact_trip\Lookup_dim_date.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT_fact_trip\Lookup_dim_date.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dim_date.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\Lookup_dim_date.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dim_date.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\Lookup_dim_date.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_fact_trip\Lookup_dim_driver"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup_dim_driver"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT d.driver_key,d.driver_id FROM dim_driver d</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT d.driver_key,d.driver_id FROM dim_driver d) [refTable]
+where [refTable].[driver_id] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="driver_key" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="driver_id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[driver_id]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_fact_trip\Lookup_dim_driver.Connections[OleDbConnection]"
+                  connectionManagerID="{0E59CA9D-F5D1-4F57-B9DE-4B141017812D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.Uber_DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_fact_trip\Lookup_dim_driver.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dim_driver.Inputs[Lookup Input].Columns[driver_id]"
+                      cachedDataType="i4"
+                      cachedName="driver_id"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[driver_id]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">driver_id</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_fact_trip\Lookup_dim_driver.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT_fact_trip\Lookup_dim_driver.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dim_driver.Outputs[Lookup Match Output].Columns[driver_key]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DFT_fact_trip\Lookup_dim_driver.Outputs[Lookup Match Output].Columns[driver_key]"
+                      name="driver_key"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">driver_key</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_fact_trip\Lookup_dim_driver.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT_fact_trip\Lookup_dim_driver.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_fact_trip\Lookup_dim_driver.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT_fact_trip\Lookup_dim_driver.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dim_driver.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\Lookup_dim_driver.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dim_driver.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\Lookup_dim_driver.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_fact_trip\Lookup_dim_payment_method"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup_dim_payment_method"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT p.payment_method_key,p.payment_method_value FROM dim_payment_method p</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT p.payment_method_key,p.payment_method_value FROM dim_payment_method p) [refTable]
+where [refTable].[payment_method_value] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="payment_method_key" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="payment_method_value" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[payment_method]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_fact_trip\Lookup_dim_payment_method.Connections[OleDbConnection]"
+                  connectionManagerID="{0E59CA9D-F5D1-4F57-B9DE-4B141017812D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.Uber_DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_fact_trip\Lookup_dim_payment_method.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dim_payment_method.Inputs[Lookup Input].Columns[payment_method]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="payment_method"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[payment_method]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">payment_method_value</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_fact_trip\Lookup_dim_payment_method.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT_fact_trip\Lookup_dim_payment_method.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dim_payment_method.Outputs[Lookup Match Output].Columns[payment_method_key]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DFT_fact_trip\Lookup_dim_payment_method.Outputs[Lookup Match Output].Columns[payment_method_key]"
+                      name="payment_method_key"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">payment_method_key</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_fact_trip\Lookup_dim_payment_method.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT_fact_trip\Lookup_dim_payment_method.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_fact_trip\Lookup_dim_payment_method.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT_fact_trip\Lookup_dim_payment_method.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dim_payment_method.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\Lookup_dim_payment_method.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dim_payment_method.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\Lookup_dim_payment_method.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_fact_trip\Lookup_dim_rider"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup_dim_rider"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT r.rider_key,r.rider_id FROM dim_rider r</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT r.rider_key,r.rider_id FROM dim_rider r) [refTable]
+where [refTable].[rider_id] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="rider_key" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="rider_id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[rider_id]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_fact_trip\Lookup_dim_rider.Connections[OleDbConnection]"
+                  connectionManagerID="{0E59CA9D-F5D1-4F57-B9DE-4B141017812D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.Uber_DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_fact_trip\Lookup_dim_rider.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dim_rider.Inputs[Lookup Input].Columns[rider_id]"
+                      cachedDataType="i4"
+                      cachedName="rider_id"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[rider_id]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">rider_id</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_fact_trip\Lookup_dim_rider.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT_fact_trip\Lookup_dim_rider.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dim_rider.Outputs[Lookup Match Output].Columns[rider_key]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DFT_fact_trip\Lookup_dim_rider.Outputs[Lookup Match Output].Columns[rider_key]"
+                      name="rider_key"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">rider_key</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_fact_trip\Lookup_dim_rider.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT_fact_trip\Lookup_dim_rider.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_fact_trip\Lookup_dim_rider.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT_fact_trip\Lookup_dim_rider.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dim_rider.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\Lookup_dim_rider.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dim_rider.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\Lookup_dim_rider.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_fact_trip\Lookup_dim_status"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup_dim_status"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT s.status_key,s.status_value FROM dim_status s</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT s.status_key,s.status_value FROM dim_status s) [refTable]
+where [refTable].[status_value] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="status_key" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="status_value" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[status]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_fact_trip\Lookup_dim_status.Connections[OleDbConnection]"
+                  connectionManagerID="{0E59CA9D-F5D1-4F57-B9DE-4B141017812D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.Uber_DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_fact_trip\Lookup_dim_status.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dim_status.Inputs[Lookup Input].Columns[status]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="status"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[status]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">status_value</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_fact_trip\Lookup_dim_status.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT_fact_trip\Lookup_dim_status.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dim_status.Outputs[Lookup Match Output].Columns[status_key]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DFT_fact_trip\Lookup_dim_status.Outputs[Lookup Match Output].Columns[status_key]"
+                      name="status_key"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">status_key</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_fact_trip\Lookup_dim_status.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT_fact_trip\Lookup_dim_status.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_fact_trip\Lookup_dim_status.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT_fact_trip\Lookup_dim_status.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dim_status.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\Lookup_dim_status.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dim_status.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\Lookup_dim_status.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_fact_trip\Lookup_dim_time"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup_dim_time"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT t.time_key,t.hour_24 FROM dim_time t</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT t.time_key,t.hour_24 FROM dim_time t) [refTable]
+where [refTable].[hour_24] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="time_key" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="hour_24" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[trip_hour]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_fact_trip\Lookup_dim_time.Connections[OleDbConnection]"
+                  connectionManagerID="{0E59CA9D-F5D1-4F57-B9DE-4B141017812D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.Uber_DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_fact_trip\Lookup_dim_time.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dim_time.Inputs[Lookup Input].Columns[trip_hour]"
+                      cachedDataType="i4"
+                      cachedName="trip_hour"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[trip_hour]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">hour_24</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_fact_trip\Lookup_dim_time.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT_fact_trip\Lookup_dim_time.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dim_time.Outputs[Lookup Match Output].Columns[time_key]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DFT_fact_trip\Lookup_dim_time.Outputs[Lookup Match Output].Columns[time_key]"
+                      name="time_key"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">time_key</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_fact_trip\Lookup_dim_time.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT_fact_trip\Lookup_dim_time.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_fact_trip\Lookup_dim_time.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT_fact_trip\Lookup_dim_time.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dim_time.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\Lookup_dim_time.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dim_time.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\Lookup_dim_time.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_fact_trip\Lookup_dropoff_dim_location"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup_dropoff_dim_location"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT l.location_key,l.location_id FROM dim_location l</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT l.location_key,l.location_id FROM dim_location l) [refTable]
+where [refTable].[location_id] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="location_key" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="location_id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[dropoff_location_id]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_fact_trip\Lookup_dropoff_dim_location.Connections[OleDbConnection]"
+                  connectionManagerID="{0E59CA9D-F5D1-4F57-B9DE-4B141017812D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.Uber_DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_fact_trip\Lookup_dropoff_dim_location.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dropoff_dim_location.Inputs[Lookup Input].Columns[dropoff_location_id]"
+                      cachedDataType="i4"
+                      cachedName="dropoff_location_id"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[dropoff_location_id]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">location_id</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_fact_trip\Lookup_dropoff_dim_location.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT_fact_trip\Lookup_dropoff_dim_location.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dropoff_dim_location.Outputs[Lookup Match Output].Columns[location_key]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DFT_fact_trip\Lookup_dropoff_dim_location.Outputs[Lookup Match Output].Columns[location_key]"
+                      name="location_key"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">location_key</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_fact_trip\Lookup_dropoff_dim_location.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT_fact_trip\Lookup_dropoff_dim_location.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_fact_trip\Lookup_dropoff_dim_location.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT_fact_trip\Lookup_dropoff_dim_location.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dropoff_dim_location.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\Lookup_dropoff_dim_location.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\Lookup_dropoff_dim_location.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\Lookup_dropoff_dim_location.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_fact_trip\Lookup_pickup_dim_location"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup_pickup_dim_location"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT l.location_key,l.location_id FROM dim_location l</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT l.location_key,l.location_id FROM dim_location l) [refTable]
+where [refTable].[location_id] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="location_key" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="location_id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[pickup_location_id]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_fact_trip\Lookup_pickup_dim_location.Connections[OleDbConnection]"
+                  connectionManagerID="{0E59CA9D-F5D1-4F57-B9DE-4B141017812D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.Uber_DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_fact_trip\Lookup_pickup_dim_location.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_fact_trip\Lookup_pickup_dim_location.Inputs[Lookup Input].Columns[pickup_location_id]"
+                      cachedDataType="i4"
+                      cachedName="pickup_location_id"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[pickup_location_id]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">location_id</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_fact_trip\Lookup_pickup_dim_location.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT_fact_trip\Lookup_pickup_dim_location.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\Lookup_pickup_dim_location.Outputs[Lookup Match Output].Columns[location_key]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DFT_fact_trip\Lookup_pickup_dim_location.Outputs[Lookup Match Output].Columns[location_key]"
+                      name="location_key"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">location_key</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_fact_trip\Lookup_pickup_dim_location.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT_fact_trip\Lookup_pickup_dim_location.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_fact_trip\Lookup_pickup_dim_location.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT_fact_trip\Lookup_pickup_dim_location.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\Lookup_pickup_dim_location.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\Lookup_pickup_dim_location.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\Lookup_pickup_dim_location.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\Lookup_pickup_dim_location.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_fact_trip\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[fact_trip]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_fact_trip\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="{0E59CA9D-F5D1-4F57-B9DE-4B141017812D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.Uber_DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[trip_id]"
+                      cachedDataType="i4"
+                      cachedName="trip_id"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[trip_id]"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[trip_id]" />
+                    <inputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[duration_mins]"
+                      cachedDataType="i4"
+                      cachedName="duration_mins"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[duration_mins]"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[duration_mins]" />
+                    <inputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[total_fare]"
+                      cachedDataType="numeric"
+                      cachedName="total_fare"
+                      cachedPrecision="10"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[total_fare]"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[total_fare]" />
+                    <inputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[rider_key]"
+                      cachedDataType="i4"
+                      cachedName="rider_key"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[rider_key]"
+                      lineageId="Package\DFT_fact_trip\Lookup_dim_rider.Outputs[Lookup Match Output].Columns[rider_key]" />
+                    <inputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[driver_key]"
+                      cachedDataType="i4"
+                      cachedName="driver_key"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[driver_key]"
+                      lineageId="Package\DFT_fact_trip\Lookup_dim_driver.Outputs[Lookup Match Output].Columns[driver_key]" />
+                    <inputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[status_key]"
+                      cachedDataType="i4"
+                      cachedName="status_key"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[status_key]"
+                      lineageId="Package\DFT_fact_trip\Lookup_dim_status.Outputs[Lookup Match Output].Columns[status_key]" />
+                    <inputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[payment_method_key]"
+                      cachedDataType="i4"
+                      cachedName="payment_method_key"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[payment_method_key]"
+                      lineageId="Package\DFT_fact_trip\Lookup_dim_payment_method.Outputs[Lookup Match Output].Columns[payment_method_key]" />
+                    <inputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[location_key]"
+                      cachedDataType="i4"
+                      cachedName="location_key"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[pickup_location_key]"
+                      lineageId="Package\DFT_fact_trip\Lookup_pickup_dim_location.Outputs[Lookup Match Output].Columns[location_key]" />
+                    <inputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[location_key1]"
+                      cachedDataType="i4"
+                      cachedName="location_key"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[dropoff_location_key]"
+                      lineageId="Package\DFT_fact_trip\Lookup_dropoff_dim_location.Outputs[Lookup Match Output].Columns[location_key]" />
+                    <inputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[date_key]"
+                      cachedDataType="i4"
+                      cachedName="date_key"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[trip_date_key]"
+                      lineageId="Package\DFT_fact_trip\Lookup_dim_date.Outputs[Lookup Match Output].Columns[date_key]" />
+                    <inputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[time_key]"
+                      cachedDataType="i4"
+                      cachedName="time_key"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[trip_hour_key]"
+                      lineageId="Package\DFT_fact_trip\Lookup_dim_time.Outputs[Lookup Match Output].Columns[time_key]" />
+                    <inputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[distance_km]"
+                      cachedDataType="numeric"
+                      cachedName="distance_km"
+                      cachedPrecision="10"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[distance_km]"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[distance_km]" />
+                    <inputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[base_fare]"
+                      cachedDataType="numeric"
+                      cachedName="base_fare"
+                      cachedPrecision="10"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[base_fare]"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[base_fare]" />
+                    <inputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[surge_multiplier]"
+                      cachedDataType="numeric"
+                      cachedName="surge_multiplier"
+                      cachedPrecision="5"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[surge_multiplier]"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[surge_multiplier]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[trip_key]"
+                      dataType="i4"
+                      name="trip_key" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[trip_id]"
+                      dataType="i4"
+                      name="trip_id" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[rider_key]"
+                      dataType="i4"
+                      name="rider_key" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[driver_key]"
+                      dataType="i4"
+                      name="driver_key" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[pickup_location_key]"
+                      dataType="i4"
+                      name="pickup_location_key" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[dropoff_location_key]"
+                      dataType="i4"
+                      name="dropoff_location_key" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[trip_date_key]"
+                      dataType="i4"
+                      name="trip_date_key" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[trip_hour_key]"
+                      dataType="i4"
+                      name="trip_hour_key" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[status_key]"
+                      dataType="i4"
+                      name="status_key" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[payment_method_key]"
+                      dataType="i4"
+                      name="payment_method_key" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[distance_km]"
+                      dataType="numeric"
+                      name="distance_km"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[duration_mins]"
+                      dataType="i4"
+                      name="duration_mins" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[total_fare]"
+                      dataType="numeric"
+                      name="total_fare"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[base_fare]"
+                      dataType="numeric"
+                      name="base_fare"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[surge_multiplier]"
+                      dataType="numeric"
+                      name="surge_multiplier"
+                      precision="5"
+                      scale="2" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_fact_trip\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_fact_trip\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
+    t.trip_id,t.rider_id,t.driver_id,t.pickup_location_id,t.dropoff_location_id,t.base_fare,t.surge_multiplier,t.[status],t.distance_km,t.duration_mins,t.total_fare,t.payment_method,t.trip_date,t.trip_hour
+FROM
+    silver.trips t</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_fact_trip\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="{5EEA5628-0FB0-4A0C-9C90-21B8ED84DA36}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.Uber]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[trip_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[trip_id]"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[trip_id]"
+                      name="trip_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[distance_km]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[distance_km]"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[distance_km]"
+                      name="distance_km"
+                      precision="10"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[duration_mins]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[duration_mins]"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[duration_mins]"
+                      name="duration_mins"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[total_fare]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[total_fare]"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[total_fare]"
+                      name="total_fare"
+                      precision="10"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[rider_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[rider_id]"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[rider_id]"
+                      name="rider_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[driver_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[driver_id]"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[driver_id]"
+                      name="driver_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[pickup_location_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[pickup_location_id]"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[pickup_location_id]"
+                      name="pickup_location_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[dropoff_location_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[dropoff_location_id]"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[dropoff_location_id]"
+                      name="dropoff_location_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[status]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[status]"
+                      length="20"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[status]"
+                      name="status"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[payment_method]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[payment_method]"
+                      length="20"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[payment_method]"
+                      name="payment_method"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[trip_date]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[trip_date]"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[trip_date]"
+                      name="trip_date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[trip_hour]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[trip_hour]"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[trip_hour]"
+                      name="trip_hour"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[base_fare]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[base_fare]"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[base_fare]"
+                      name="base_fare"
+                      precision="10"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[surge_multiplier]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[surge_multiplier]"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].Columns[surge_multiplier]"
+                      name="surge_multiplier"
+                      precision="5"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[trip_id]"
+                      dataType="i4"
+                      name="trip_id" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[distance_km]"
+                      dataType="numeric"
+                      name="distance_km"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[duration_mins]"
+                      dataType="i4"
+                      name="duration_mins" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[total_fare]"
+                      dataType="numeric"
+                      name="total_fare"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[rider_id]"
+                      dataType="i4"
+                      name="rider_id" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[driver_id]"
+                      dataType="i4"
+                      name="driver_id" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[pickup_location_id]"
+                      dataType="i4"
+                      name="pickup_location_id" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[dropoff_location_id]"
+                      dataType="i4"
+                      name="dropoff_location_id" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[status]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="status" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[payment_method]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="payment_method" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[trip_date]"
+                      dataType="dbDate"
+                      name="trip_date" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[trip_hour]"
+                      dataType="i4"
+                      name="trip_hour" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[base_fare]"
+                      dataType="numeric"
+                      name="base_fare"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[surge_multiplier]"
+                      dataType="numeric"
+                      name="surge_multiplier"
+                      precision="5"
+                      scale="2" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[trip_id]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[trip_id]"
+                      name="trip_id" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[rider_id]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[rider_id]"
+                      name="rider_id" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[driver_id]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[driver_id]"
+                      name="driver_id" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[pickup_location_id]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[pickup_location_id]"
+                      name="pickup_location_id" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[dropoff_location_id]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[dropoff_location_id]"
+                      name="dropoff_location_id" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[base_fare]"
+                      dataType="numeric"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[base_fare]"
+                      name="base_fare"
+                      precision="10"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[surge_multiplier]"
+                      dataType="numeric"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[surge_multiplier]"
+                      name="surge_multiplier"
+                      precision="5"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[status]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[status]"
+                      name="status" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[distance_km]"
+                      dataType="numeric"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[distance_km]"
+                      name="distance_km"
+                      precision="10"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[duration_mins]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[duration_mins]"
+                      name="duration_mins" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[total_fare]"
+                      dataType="numeric"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[total_fare]"
+                      name="total_fare"
+                      precision="10"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[payment_method]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[payment_method]"
+                      name="payment_method" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[trip_date]"
+                      dataType="dbDate"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[trip_date]"
+                      name="trip_date" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[trip_hour]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[trip_hour]"
+                      name="trip_hour" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT_fact_trip.Paths[Lookup Match Output]"
+              endId="Package\DFT_fact_trip\Lookup_dim_driver.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT_fact_trip\Lookup_dim_rider.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT_fact_trip.Paths[Lookup Match Output1]"
+              endId="Package\DFT_fact_trip\Lookup_dim_date.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT_fact_trip\Lookup_dim_driver.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT_fact_trip.Paths[Lookup Match Output2]"
+              endId="Package\DFT_fact_trip\Lookup_dim_time.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT_fact_trip\Lookup_dim_date.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT_fact_trip.Paths[Lookup Match Output3]"
+              endId="Package\DFT_fact_trip\Lookup_pickup_dim_location.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT_fact_trip\Lookup_dim_time.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT_fact_trip.Paths[Lookup Match Output4]"
+              endId="Package\DFT_fact_trip\Lookup_dropoff_dim_location.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT_fact_trip\Lookup_pickup_dim_location.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT_fact_trip.Paths[Lookup Match Output5]"
+              endId="Package\DFT_fact_trip\Lookup_dim_status.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT_fact_trip\Lookup_dropoff_dim_location.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT_fact_trip.Paths[Lookup Match Output6]"
+              endId="Package\DFT_fact_trip\Lookup_dim_payment_method.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT_fact_trip\Lookup_dim_status.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT_fact_trip.Paths[Lookup Match Output7]"
+              endId="Package\DFT_fact_trip\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT_fact_trip\Lookup_dim_payment_method.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT_fact_trip.Paths[OLE DB Source Output]"
+              endId="Package\DFT_fact_trip\Lookup_dim_rider.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\DFT_fact_trip\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Execute SQL Task"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{68EBA5D9-7BF9-46B8-ACE2-C33FDFA9AEAA}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute SQL Task"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0E59CA9D-F5D1-4F57-B9DE-4B141017812D}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE fact_trip" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{7DDECBA9-CD7D-4776-9426-9B643A35C558}"
+      DTS:From="Package\Execute SQL Task"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\DFT_fact_trip" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="142.4,41.6"
+          Id="Package\DFT_fact_trip"
+          TopLeft="357.857143618927,209.529411581045" />
+        <NodeLayout
+          Size="162.4,41.6"
+          Id="Package\Execute SQL Task"
+          TopLeft="381.214286514083,64.3823528895638" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="462.414286514083,105.982352889564">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-33.357142895156,103.547058691481"
+              Start="0,0"
+              End="-33.357142895156,96.0470586914814">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.7735293457407" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,47.7735293457407"
+                    Point2="0,51.7735293457407"
+                    Point3="-4,51.7735293457407" />
+                  <mssgle:LineSegment
+                    End="-29.357142895156,51.7735293457407" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-29.357142895156,51.7735293457407"
+                    Point2="-33.357142895156,51.7735293457407"
+                    Point3="-33.357142895156,55.7735293457407" />
+                  <mssgle:LineSegment
+                    End="-33.357142895156,96.0470586914814" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DFT_fact_trip">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="217.6,41.6"
+          Id="Package\DFT_fact_trip\Lookup_dropoff_dim_location"
+          TopLeft="121.214285960611,359.90000004558" />
+        <NodeLayout
+          Size="170.4,41.6"
+          Id="Package\DFT_fact_trip\OLE DB Destination"
+          TopLeft="434.285715210195,535.141176256764" />
+        <NodeLayout
+          Size="168,41.6"
+          Id="Package\DFT_fact_trip\Lookup_dim_driver"
+          TopLeft="356.928572176671,103.276470591587" />
+        <NodeLayout
+          Size="163.2,41.6"
+          Id="Package\DFT_fact_trip\Lookup_dim_rider"
+          TopLeft="121.214285960611,97.2647058019176" />
+        <NodeLayout
+          Size="161.6,41.6"
+          Id="Package\DFT_fact_trip\Lookup_dim_time"
+          TopLeft="121.214285960611,258.30000004558" />
+        <NodeLayout
+          Size="214.4,41.6"
+          Id="Package\DFT_fact_trip\Lookup_pickup_dim_location"
+          TopLeft="343.357143576352,241.37058838477" />
+        <NodeLayout
+          Size="149.6,41.6"
+          Id="Package\DFT_fact_trip\OLE DB Source"
+          TopLeft="325.00000069184,38.999999965815" />
+        <NodeLayout
+          Size="162.4,41.6"
+          Id="Package\DFT_fact_trip\Lookup_dim_date"
+          TopLeft="135.500000276736,156.70000004558" />
+        <NodeLayout
+          Size="224,41.6"
+          Id="Package\DFT_fact_trip\Lookup_dim_payment_method"
+          TopLeft="121.214285960611,563.10000004558" />
+        <NodeLayout
+          Size="169.6,41.6"
+          Id="Package\DFT_fact_trip\Lookup_dim_status"
+          TopLeft="121.214285960611,461.50000004558" />
+        <EdgeLayout
+          Id="Package\DFT_fact_trip.Paths[OLE DB Source Output]"
+          TopLeft="325.00000069184,59.799999965815">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-40.5857147312289,58.2647058361026"
+              Start="0,0"
+              End="-33.0857147312289,58.2647058361026">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-16.2928573656145,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-16.2928573656145,0"
+                    Point2="-20.2928573656145,0"
+                    Point3="-20.2928573656145,4" />
+                  <mssgle:LineSegment
+                    End="-20.2928573656145,54.2647058361026" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-20.2928573656145,54.2647058361026"
+                    Point2="-20.2928573656145,58.2647058361026"
+                    Point3="-24.2928573656145,58.2647058361026" />
+                  <mssgle:LineSegment
+                    End="-33.0857147312289,58.2647058361026" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT_fact_trip.Paths[Lookup Match Output7]"
+          TopLeft="345.214285960611,583.90000004558">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="89.0714292495839,-27.9588237888157"
+              Start="0,0"
+              End="81.5714292495839,-27.9588237888157">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="40.535714624792,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="40.535714624792,0"
+                    Point2="44.535714624792,0"
+                    Point3="44.535714624792,-4" />
+                  <mssgle:LineSegment
+                    End="44.535714624792,-23.9588237888157" />
+                  <mssgle:CubicBezierSegment
+                    Point1="44.535714624792,-23.9588237888157"
+                    Point2="44.535714624792,-27.9588237888157"
+                    Point3="48.535714624792,-27.9588237888157" />
+                  <mssgle:LineSegment
+                    End="81.5714292495839,-27.9588237888157" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-3.65567209395805,1,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT_fact_trip.Paths[Lookup Match Output6]"
+          TopLeft="206.014285960611,503.10000004558">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="27.2,60"
+              Start="0,0"
+              End="27.2,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26"
+                    Point2="0,30"
+                    Point3="4,30" />
+                  <mssgle:LineSegment
+                    End="23.2,30" />
+                  <mssgle:CubicBezierSegment
+                    Point1="23.2,30"
+                    Point2="27.2,30"
+                    Point3="27.2,34" />
+                  <mssgle:LineSegment
+                    End="27.2,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-34.59138671875,35,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT_fact_trip.Paths[Lookup Match Output5]"
+          TopLeft="230.014285960611,401.50000004558">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-24,60"
+              Start="0,0"
+              End="-24,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26"
+                    Point2="0,30"
+                    Point3="-4,30" />
+                  <mssgle:LineSegment
+                    End="-20,30" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-20,30"
+                    Point2="-24,30"
+                    Point3="-24,34" />
+                  <mssgle:LineSegment
+                    End="-24,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-60.19138671875,35,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT_fact_trip.Paths[Lookup Match Output4]"
+          TopLeft="450.557143576352,282.97058838477">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-220.542857615741,76.9294116608102"
+              Start="0,0"
+              End="-220.542857615741,69.4294116608102">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.4647058304051" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,34.4647058304051"
+                    Point2="0,38.4647058304051"
+                    Point3="-4,38.4647058304051" />
+                  <mssgle:LineSegment
+                    End="-216.542857615741,38.4647058304051" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-216.542857615741,38.4647058304051"
+                    Point2="-220.542857615741,38.4647058304051"
+                    Point3="-220.542857615741,42.4647058304051" />
+                  <mssgle:LineSegment
+                    End="-220.542857615741,69.4294116608102" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-158.462815526621,43.4647058304051,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT_fact_trip.Paths[Lookup Match Output3]"
+          TopLeft="282.814285960611,279.10000004558">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="60.542857615741,-16.9294116608102"
+              Start="0,0"
+              End="53.042857615741,-16.9294116608102">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="26.2714288078705,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="26.2714288078705,0"
+                    Point2="30.2714288078705,0"
+                    Point3="30.2714288078705,-4" />
+                  <mssgle:LineSegment
+                    End="30.2714288078705,-12.9294116608102" />
+                  <mssgle:CubicBezierSegment
+                    Point1="30.2714288078705,-12.9294116608102"
+                    Point2="30.2714288078705,-16.9294116608102"
+                    Point3="34.2714288078705,-16.9294116608102" />
+                  <mssgle:LineSegment
+                    End="53.042857615741,-16.9294116608102" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-17.9199579108795,1,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT_fact_trip.Paths[Lookup Match Output2]"
+          TopLeft="216.700000276736,198.30000004558">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-14.685714316125,60"
+              Start="0,0"
+              End="-14.685714316125,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26"
+                    Point2="0,30"
+                    Point3="-4,30" />
+                  <mssgle:LineSegment
+                    End="-10.685714316125,30" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-10.685714316125,30"
+                    Point2="-14.685714316125,30"
+                    Point3="-14.685714316125,34" />
+                  <mssgle:LineSegment
+                    End="-14.685714316125,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-55.5342438768125,35,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT_fact_trip.Paths[Lookup Match Output1]"
+          TopLeft="356.928572176671,129.676470591587">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-59.0285718999347,47.8235294539933"
+              Start="0,0"
+              End="-51.5285718999347,47.8235294539933">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-20.9231748021947,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-20.9231748021947,0"
+                    Point2="-24.9231748021947,0"
+                    Point3="-24.9231748021947,4" />
+                  <mssgle:LineSegment
+                    End="-24.9231748021947,43.8235294539933" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-24.9231748021947,43.8235294539933"
+                    Point2="-24.9231748021947,47.8235294539933"
+                    Point3="-28.9231748021947,47.8235294539933" />
+                  <mssgle:LineSegment
+                    End="-51.5285718999347,47.8235294539933" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-73.1145615209446,-17.609375,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT_fact_trip.Paths[Lookup Match Output]"
+          TopLeft="284.414285960611,123.870588196752">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="72.5142862160596,0"
+              Start="0,0"
+              End="65.0142862160596,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="65.0142862160596,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-15.6842436107202,5,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_fact_trip\Lookup_dropoff_dim_location">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_fact_trip\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_fact_trip\Lookup_dim_driver">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_fact_trip\Lookup_dim_rider">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_fact_trip\Lookup_dim_time">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_fact_trip\Lookup_pickup_dim_location">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_fact_trip\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_fact_trip\Lookup_dim_date">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_fact_trip\Lookup_dim_payment_method">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_fact_trip\Lookup_dim_status">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
