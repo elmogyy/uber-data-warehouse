@@ -13,9 +13,6 @@ obj/
 *.user
 *.suo
 
-# SQL Server Backup
-*.bak
-
 # Visual Studio
 .vs/
 bin/
